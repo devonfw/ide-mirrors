@@ -1,0 +1,2 @@
+https://github.com/rancher-sandbox/rancher-desktop/releases/download/v${version}/${code}${version}.${ext}
+https://github.com/rancher-sandbox/rancher-desktop/releases/download/v${version}/Rancher.Desktop-${version}.${arch}.${ext}
