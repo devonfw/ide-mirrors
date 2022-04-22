@@ -1,1 +1,1 @@
-https://awscli.amazonaws.com/${code}.${ext}
+https://awscli.amazonaws.com/${os}.${ext}
