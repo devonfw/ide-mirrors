@@ -1,0 +1,3 @@
+windows=zip
+mac=pkg
+linux=tgz
