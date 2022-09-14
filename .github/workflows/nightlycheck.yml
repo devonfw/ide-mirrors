@@ -1,17 +1,12 @@
-name: Files should be terminated by newline
-
-on:
-  push
-    
-
+name: CI Files should be terminated by newline
+on: pull_request
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Set git to use LF
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Detect CRLF line endings
+        run: find . -type f | xargs file | grep CRLF
