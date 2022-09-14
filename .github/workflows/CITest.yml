@@ -1,5 +1,5 @@
 name: CI Files should be terminated by newline
-on: pull_request
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
