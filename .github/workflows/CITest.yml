@@ -17,5 +17,5 @@ jobs:
         run: find . -maxdepth 1 -type d '!' -exec test -e "{}/ext-mappings" ';' -print
         continue-on-error: true
       - name: Check on failures
-        if: steps.firststep.outcome != 'success' || steps.secondstep.outcome != 'success'
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.firststep.outcome }} == 'failure' || ${{ steps.secondstep.outcome }} == 'failure')
         run: exit 1
