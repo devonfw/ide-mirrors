@@ -1,5 +1,5 @@
 name: CI of ide-mirrors
-on: push
+on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,13 +9,13 @@ jobs:
         with:
           submodules: recursive
       - name: Detect CRLF line endings
-        id: firststep
+        id: detect
         run: find . -type f | xargs file | grep CRLF
         continue-on-error: true
       - name: Check if ext-mappings present in every subfolder
-        id: secondstep
+        id: check
         run: find . -maxdepth 1 -type d '!' -exec test -e "{}/ext-mappings" ';' -print
         continue-on-error: true
       - name: Check on failures
-        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.firststep.outcome }} == 'failure' || ${{ steps.secondstep.outcome }} == 'failure')
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.detect.outcome }} == 'failure' || ${{ steps.check.outcome }} == 'failure')
         run: exit 1
