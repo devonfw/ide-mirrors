@@ -1,4 +1,4 @@
-name: CI Files should be terminated by newline
+name: CI of ide-mirrors
 on: push
 jobs:
   build:
@@ -9,4 +9,13 @@ jobs:
         with:
           submodules: recursive
       - name: Detect CRLF line endings
+        id: 1step
         run: find . -type f | xargs file | grep CRLF
+        continue-on-error: true
+      - name: Check if ext-mappings present in every subfolder
+        id: 2step
+        run: find . -maxdepth 1 -type d '!' -exec test -e "{}/ext-mappings" ';' -print
+        continue-on-error: true
+      - name: Check on failures
+        if: steps.1step.outcome != 'success' || steps.2step.outcome != 'success'
+        run: exit 1
