@@ -14,8 +14,8 @@ jobs:
         continue-on-error: true
       - name: Check if ext-mappings present in every subfolder
         id: check
-        run: find . -maxdepth 1 -type d '!' -exec test -e "{}/ext-mappings" ';' -print && exit 1 || exit 0
+        run: find . -maxdepth 1 -type d '!' -exec test -e "{}/ext-mappings" ';' -print
         continue-on-error: true
       - name: Check on failures
-        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.detect.outcome }} == 'failure' || ${{ steps.check.outcome }} == 'failure')
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.detect.outcome }} == 'failure' || (${{ success() }} || ${{ failure() }}) && ${{ steps.check.outcome }} == 'failure')
         run: exit 1
