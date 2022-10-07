@@ -1,1 +1,1 @@
-sed 's/}/\n/g' | grep '"name":"npm"' |  sed 's/.*"version":"//' | cut -f1 -d"\""
+sed 's/}/\n/g' | grep '"name":"npm"' |  sed 's/.*"version":"//' | cut -f1 -d"\"" | grep -v "{"

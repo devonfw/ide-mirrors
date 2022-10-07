@@ -2,17 +2,27 @@
 
 # $1: path to the software or provider directory
 # $2: software name
+# $3: optional to omit sorting
 function doCurlVersions() {
+  echo "Getting versions for ${1}"
   local versions_url=$(cat "${1}/versions-url")
   # range of major versions for Java
   versions_url="${versions_url//\$\{major\}/[8-20]}"
 
-  local versions_url_op="awk -F 'git/refs/tags/' ' {print $2}' | awk -F '\"' '{print $1}' | awk NF" | sed 's/v//'
+  local versions_url_op='awk -F '"'"'git/refs/tags/'"'"' '"'"' {print $2}'"'"' | awk -F '"'"'\"'"'"' '"'"'{print $1}'"'"' | awk NF'
+  if [ "${2}" != "helm" ] && [ "${2}" != "nodejs" ] && [ "${2}" != "vscode" ]
+  then
+    versions_url_op="${versions_url_op} | sed 's/v//'"
+  fi
   if [ -f "${1}/versions-url-op" ]
   then
-    local versions_url_op=$(cat "${1}/versions-url-op")
+    local versions_url_op=$(cat "${1}/versions-url-op" | tr -d '\n')
   fi
-  versions_url_op="${versions_url_op} | grep -i -Ev "alpha|beta|cr|dev|ec|list|next|pre|rc|rtm|servicing|test|unstable" | sort -Vru"
+  versions_url_op="${versions_url_op} | grep -i -Ev \"alpha|bad|beta|ce|cr|de|ec|extensionbuilders|good|heads|inside|list|next|pre|rc|rtm|sda-|servicing|test|translation|unstable|/\""
+  if [ -z "${3}" ]
+  then
+    versions_url_op="${versions_url_op} | sort -Vru"
+  fi
   eval "curl -s "${versions_url}" | "${versions_url_op}"" >> "./${2}/available-versions.tmp"
 }
 
@@ -29,7 +39,7 @@ do
     do
       if [ "${folder}" != "." ]
       then
-        doCurlVersions "./${software}/${folder}" "${software}"
+        doCurlVersions "./${software}/${folder}" "${software}" -
       fi
     done < "./${software}/versions"
 
