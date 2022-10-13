@@ -48,7 +48,7 @@ do
       # Java workaround: convert versions to a different format (e.g. 11.0.9_11 -> 11.0.9.0.0.11), sort them, and convert them back
       sed -i 's/_/\.0\.0./' "${temp_path}" && sort -Vru -o "${temp_path}" "${temp_path}" && sed -i 's/\.0\.0./_/' "${temp_path}"
       # Java workaround: remove similar versions with ending dots (e.g. 11.0.7_10.2 11.0.7_10.1 11.0.7_10)
-      sed -i '/_/{ /\.^/d }' "${temp_path}"
+      sed -i 's/\.[^.]*$//' "${temp_path}"
       # Java 8 workaround: remove versions with dots (e.g. 8u272b10.1)
       sed -i '/^8/{ /\./d }' "${temp_path}"
     else
