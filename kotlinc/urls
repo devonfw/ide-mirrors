@@ -1,1 +1,1 @@
-https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-native-${os}-x86_64-${version}.{ext}
+https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-v${version}.zip
