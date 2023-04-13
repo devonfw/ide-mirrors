@@ -1,1 +1,1 @@
-https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-native-${os}-${arch}-${version}.{ext}
+https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-native-${os}-${arch}-${version}.${ext}
