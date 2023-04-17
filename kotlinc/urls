@@ -1,1 +1,1 @@
-https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-v${version}.zip
+https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-${version}.zip
