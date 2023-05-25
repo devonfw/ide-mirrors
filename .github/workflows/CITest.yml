@@ -12,6 +12,10 @@ jobs:
         id: detect
         run: find . -type f | xargs file | grep CRLF && exit 1 || exit 0
         continue-on-error: true
+      - name: Detect no line terminators
+        id: detect
+        run: find . -type f | xargs file | grep "with no line terminators" && exit 1 || exit 0
+        continue-on-error: true
       - name: Check if ext-mappings present in every subfolder
         id: check
         run: find . -maxdepth 1 -type d -not -path './.*'  -not -path '.' '!' -exec test -e "{}/ext-mappings" ';' -print | grep . && exit 1 || exit 0
