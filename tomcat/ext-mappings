@@ -1,0 +1,4 @@
+windows=zip
+mac=tar.gz
+*=tar.gz
+

@@ -1,0 +1,3 @@
+awk -F '.*<a href="[0.9.]*\\/">|\\/<' '{print $1}' | sed -n -e 's/^.*href="[0-9.]*\/">//p'
+
+# ???versions-url-op contains the command used to extract the versions from the response of curl $versions-url in a suitable format. This file is always required if you didn’t use the GitHub API for the versions-url. In case you used the GitHub API, you only have to create this file if the standardized approach doesn’t work (e.g. versions have the wrong format, there are versions left that need to be removed, …​)
