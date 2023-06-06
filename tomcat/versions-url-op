@@ -1,1 +1,1 @@
-grep "releases/tag" | awk -F'/' '{print $6}' | awk -F '"' '{print $1}' | sort -rV
+grep "releases/tag/" | awk -F'/' '{print $6}' | awk -F '"' '{print $1}' | sort -rV
